@@ -1,13 +1,20 @@
 pipeline {
     agent {
-        docker {image 'python:3.9-alpine'}
+        docker {
+            //image 'python:3.9-alpine'
+            label "linux"
+            }
     }
-
     stages {
-        stage('test') {
+        stage('Build') {
             steps {
-                sh 'python --version'
+                sh 'docker buld -t math_game .'
             }
         }
+        stage('Run') {
+            steps {
+                sh 'docker run -d math_game'
+            }
         }
+    }
 }
